@@ -1,0 +1,14 @@
+# Adapted from source package patch for Ubuntu poppassd_1.8.5-4.1_amd64.deb
+# from https://launchpad.net/ubuntu/bionic/+package/poppassd
+# retrieved 2019-10-08.
+--- poppassd-1.8.5.orig/poppassd.c
++++ poppassd-1.8.5/poppassd.c
+@@ -233,7 +233,7 @@
+ 
+      pw=getpwnam(user);
+ 
+-     if(pw->pw_uid<POP_MIN_UID || pw == NULL) {
++     if(pw == NULL || pw->pw_uid<POP_MIN_UID) {
+          WriteToClient("500 Old password is incorrect.");
+          syslog(LOG_ERR, "failed attempt to change password for %s", user);
+          exit(1);

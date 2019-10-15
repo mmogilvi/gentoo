@@ -1,0 +1,28 @@
+--- poppassd-1.8.5.orig/README	2004-12-02 07:28:36.000000000 -0700
++++ poppassd-1.8.5/README	2019-10-09 01:01:47.057042518 -0600
+@@ -48,13 +48,22 @@
+         log_on_failure  += HOST
+ 	}
+ 
++3.5. ALTERNATIVE: Instead of steps 3 through 5, relevant UI scripts
++can run it via an appropriately-configured sudo (using the equivalent of
++"sudo /usr/sbin/popppassd"), and talk to it through pipes.  For
++example, the following /etc/sudoers line might be appropriate:
++
++	apache ALL=(ALL)       NOPASSWD: /usr/sbin/poppassd
++
+ 4. Add do /etc/services:
+   
+         poppassd	106/tcp
+ 
+-5. Configure tcpd to refuse connection to poppassd from all hosts
+-but localhost. I have tcpd compiled with -DOPTIONS and my /etc/hosts.deny
+-entry looks like:
++5. You likely want to restrict connections to localhost.  Perhaps use
++firewall rules, the "bind" and/or "only_from" xinetd directives,
++or configure inetd/xinetd to use tcpd to refuse connection to poppassd
++from all hosts but localhost.  I have tcpd compiled with -DOPTIONS
++and my /etc/hosts.deny entry looks like:
+ 
+         poppassd: nobody@localhost: allow
+         poppassd: ALL: deny
