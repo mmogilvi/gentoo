@@ -1,0 +1,13 @@
+/usr/sbin/poppassd has to be run as root to work.
+Most commonly a front end would require sys-apps/xinetd and
+connect to port 106: For this, edit /etc/xinetd.d/poppassd,
+install sys-apps/xinetd, and start the xinetd service.
+
+Alternatively, the front end may be able to run it
+directly (if already root), or might use app-admin/sudo.  To use
+sudo, you'll probably need to configure /etc/sudoers with something
+similar to:
+
+    apache ALL=(ALL)       NOPASSWD: /usr/sbin/poppassd
+
+See also README.md.bz2
